@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kirjautuminen lautapelitietokantaan</title>
+</head>
+
+<body>
+  <h1>Lautapelitietokanta</h1>
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimellä {{ session.username }}
+  </p>
+
+  {% endif %}
+  <p>
+    <a href="/login">Kirjaudu sisään</a>
+    <a href="/logout">Kirjaudu ulos</a>
+    <a href="/register">Luo tunnus</a>
+  </p>
+
+
+</body>
+
+</html>
