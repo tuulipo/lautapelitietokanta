@@ -22,6 +22,14 @@
   <p>
     <a href="/new_boardgame">Uusi lautapeli</a>
   </p>
+
+  <h2>Tietokannasta löytyvät lautapelit</h2>
+
+  <ul>
+    {% for boardgame in boardgames %}
+    <li><a href="/boardgame/{{ boardgame.id }}">{{ boardgame.boardgame_name }}</a></li>
+    {% endfor %}
+  </ul>
 </body>
 
 </html>

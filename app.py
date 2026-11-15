@@ -11,8 +11,8 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
-    #return "Tervetuloa käyttämään lautapelitietokantaa!"
+    all_boardgames = boardgames.get_boardgames()
+    return render_template("index.html", boardgames = all_boardgames)
 
 @app.route("/register")
 def register():
@@ -83,3 +83,8 @@ def create_boardgame():
     boardgames.add_boardgame(boardgame_name, duration, players_min, players_max, age_limit, genre, user_id)
 
     return redirect("/")
+
+@app.route("/boardgame/<int:boardgame_id>")
+def show_boardgame(boardgame_id):
+    boardgame = boardgames.get_boardgame(boardgame_id)
+    return render_template("new_boardgame.html")
