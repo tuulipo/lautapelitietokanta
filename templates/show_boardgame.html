@@ -2,11 +2,33 @@
 <html>
 
 <head>
-  <title>{{ boardgame.name }}</title>
+    <title>{{ boardgame.boardgame_name }}</title>
 </head>
 
 <body>
-  <h1>{{ boardgame.name }}</h1>
+    <h1>{{ boardgame.boardgame_name }}</h1>
+
+    <p>Pelin kesto: {{ boardgame.duration }}</p>
+    <p>Minimipelaajamäärä: {{ boardgame.players_min }}</p>
+    <p>Maksimipelaajamäärä: {{ boardgame.players_max }}</p>
+    <p>Ikäraja: {{ boardgame.age_limit }}</p>
+    <p>Pelityyppi: {{ boardgame.genre }}</p>
+    <p>Lisääjä: {{ boardgame.username }}</p>
+
+    {% if session.user_id == boardgame.user_id %}
+        <p>
+            <a href="/edit_boardgame/{{ boardgame.id }}">
+                Muokkaa lautapeliä
+            </a>
+        </p>
+        <p>
+            <a href="/remove_boardgame/{{ boardgame.id }}">
+                Poista lautapeli
+            </a>
+        </p>
+    {% endif %}
+
+    <a href="/">Takaisin etusivulle</a>
 </body>
 
 </html>

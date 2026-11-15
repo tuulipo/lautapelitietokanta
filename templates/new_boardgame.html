@@ -2,38 +2,45 @@
 <html>
 
 <head>
-  <title>Uuden lautapelin luominen</title>
+    <title>Uuden lautapelin lisääminen</title>
 </head>
 
 <body>
-  <h1>Uusi lautapeli</h1>
-  <form action="/create_boardgame" method="post">
-    <p>
-        Lautapelin nimi: <br />
-        <input type="text" name="boardgame_name" />
-    </p>
-    <p>
-        Lautapelin kesto: <br /> 
-        <input type="text" name="duration" /> min
-    </p>
-    <p>
-        Lautapelin minimipelaajamäärä: <br />
-        <input type="text" name="players_min" />
-    </p>
-    <p>
-        Lautapelin maksimipelaajamäärä: <br />
-        <input type="text" name="players_max" />
-    </p>
-    <p>
-        Lautapelin ikäraja: <br />
-        <input type="text" name="age_limit" />
-    </p>
-    <p>
-        Lautapelin genre: <br />
-        <input type="text" name="genre" />
-    </p>
-    <input type="submit" value="Luo uusi lautapeli" />
-  </form>
+    <h1>Uusi lautapeli</h1>
+
+    <form action="/create_boardgame" method="post">
+        <p>
+            <input type="hidden" name="csrf_token"
+            value="{{ session.csrf_token }}">
+        </p>
+        <p>
+            Pelin nimi:
+            <input type="text" name="boardgame_name" required>
+        </p>
+        <p>
+            Pelin kesto:
+            <input type="text" name="duration">
+        </p>
+        <p>
+            Minimipelaajamäärä:
+            <input type="text" name="players_min">
+        </p>
+        <p>
+            Maksimipelaajamäärä:
+            <input type="text" name="players_max">
+        </p>
+        <p>
+            Ikäraja:
+            <input type="text" name="age_limit">
+        </p>
+        <p>
+            Pelityyppi:
+            <input type="text" name="genre">
+        </p>
+        <input type="submit" value="Lisää lautapeli">
+    </form>
+
+    <a href="/">Takaisin etusivulle</a>
 </body>
 
 </html>

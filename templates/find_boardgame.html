@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lautapelien etsiminen</title>
+</head>
+
+<body>
+    <h1>Etsi lautapelejä</h1>
+
+    <form action="/find_boardgame" method="get">
+        <p>
+            Hakusana:
+            <input type="text" name="query" value="{{ query }}">
+        </p>
+        <input type="submit" value="Etsi">
+    </form>
+
+    <h2>Hakutulokset</h2>
+
+    {% for boardgame in results %}
+        <p>
+            <a href="/boardgame/{{ boardgame.id }}">
+                {{ boardgame.boardgame_name }}
+            </a>
+        </p>
+    {% endfor %}
+
+    <a href="/">Takaisin etusivulle</a>
+</body>
+
+</html>

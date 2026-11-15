@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lautapelin poistaminen</title>
+</head>
+
+<body>
+    <h1>Poista lautapeli</h1>
+
+    <p>Haluatko varmasti poistaa lautapelin {{ boardgame.boardgame_name }}?</p>
+
+    <form action="/remove_boardgame/{{ boardgame.id }}" method="post">
+        <p>
+            <input type="hidden" name="csrf_token"
+            value="{{ session.csrf_token }}">
+        </p>
+        <input type="submit" name="remove" value="Poista lautapeli">
+        <input type="submit" name="cancel" value="Peruuta">
+    </form>
+
+    <a href="/">Takaisin etusivulle</a>
+</body>
+
+</html>

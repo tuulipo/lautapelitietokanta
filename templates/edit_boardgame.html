@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lautapelin muokkaaminen</title>
+</head>
+
+<body>
+    <h1>Muokkaa lautapeliä</h1>
+
+    <form action="/update_boardgame" method="post">
+        <p>
+            <input type="hidden" name="csrf_token"
+            value="{{ session.csrf_token }}">
+            <input type="hidden" name="boardgame_id"
+            value="{{ boardgame.id }}">
+        </p>
+        <p>
+            Pelin nimi:
+            <input type="text" name="boardgame_name"
+            value="{{ boardgame.boardgame_name }}" required>
+        </p>
+        <p>
+            Pelin kesto:
+            <input type="text" name="duration"
+            value="{{ boardgame.duration }}">
+        </p>
+        <p>
+            Minimipelaajamäärä:
+            <input type="text" name="players_min"
+            value="{{ boardgame.players_min }}">
+        </p>
+        <p>
+            Maksimipelaajamäärä:
+            <input type="text" name="players_max"
+            value="{{ boardgame.players_max }}">
+        </p>
+        <p>
+            Ikäraja:
+            <input type="text" name="age_limit"
+            value="{{ boardgame.age_limit }}">
+        </p>
+        <p>
+            Pelityyppi:
+            <input type="text" name="genre"
+            value="{{ boardgame.genre }}">
+        </p>
+        <input type="submit" value="Tallenna muutokset">
+    </form>
+
+    <a href="/boardgame/{{ boardgame.id }}">Takaisin lautapeliin</a>
+</body>
+
+</html>
