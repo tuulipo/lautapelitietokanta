@@ -41,19 +41,46 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        sql = "SELECT password_hash FROM users WHERE username = ?"
+        sql = "SELECT id, password_hash FROM users WHERE username = ?"
+        rows = db.query(sql, [username])
 
-        if not db.query(sql, [username]):
+        if not rows:
             return "VIRHE: väärä tunnus tai salasana"
-        password_hash = db.query(sql, [username])[0][0]
+
+        result = rows[0]
+        user_id = result[0]
+        password_hash = result[1]
+        #password_hash = db.query(sql, [username])[0][0]
 
         if check_password_hash(password_hash, password):
+            session["user_id"] = user_id
             session["username"] = username
             return redirect("/")
-        else:
-            return "VIRHE: väärä tunnus tai salasana"
+
+        return "VIRHE: väärä tunnus tai salasana"
 
 @app.route("/logout")
 def logout():
+    del session["user_id"]
     del session["username"]
+    return redirect("/")
+
+@app.route("/new_boardgame")
+def new_boardgame():
+    return render_template("new_boardgame.html")
+
+@app.route("/create_boardgame", methods=["POST"])
+def create_boardgame():
+    boardgame_name = request.form["boardgame_name"]
+    duration = request.form["duration"]
+    players_min = request.form["players_min"]
+    players_max = request.form["players_max"]
+    age_limit = request.form["age_limit"]
+    genre = request.form["genre"]
+    user_id = session["user_id"]
+
+    sql = """INSERT INTO boardgames (boardgame_name, duration, players_min, players_max, age_limit, genre, user_id) 
+             VALUES (?, ?, ?, ?, ?, ?, ?)"""
+    db.execute(sql, [boardgame_name, duration, players_min, players_max, age_limit, genre, user_id])
+
     return redirect("/")
