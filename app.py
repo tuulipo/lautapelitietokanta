@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
+import boardgames
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -79,8 +80,6 @@ def create_boardgame():
     genre = request.form["genre"]
     user_id = session["user_id"]
 
-    sql = """INSERT INTO boardgames (boardgame_name, duration, players_min, players_max, age_limit, genre, user_id) 
-             VALUES (?, ?, ?, ?, ?, ?, ?)"""
-    db.execute(sql, [boardgame_name, duration, players_min, players_max, age_limit, genre, user_id])
+    boardgames.add_boardgame(boardgame_name, duration, players_min, players_max, age_limit, genre, user_id)
 
     return redirect("/")
